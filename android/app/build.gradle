@@ -1,0 +1,103 @@
+plugins {
+    id("com.android.application")
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+def flutterVersionCode = project.hasProperty('flutter.versionCode') ? project['flutter.versionCode'] : "1"
+def flutterVersionName = project.hasProperty('flutter.versionName') ? project['flutter.versionName'] : "1.0.0"
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    namespace = "com.egar.students"
+    compileSdkVersion 36
+    ndkVersion "27.0.12077973"
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+
+    defaultConfig {
+        applicationId "com.egar.students"
+        minSdkVersion 24
+        targetSdkVersion 36
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    googleServices { disableVersionCheck = true }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+    lint {
+        disable 'InvalidPackage'
+    }
+
+}
+
+flutter {
+    source '../..'
+}
+allprojects {
+    /// TODO: remove. hotfix for flutter_inappwebview (using androidx.webkit:webkit:1.8.0)
+    /// webview_flutter_android: ^3.16.2 androidx.webkit:webkit ^1.9.0 remove SUPPRESS_ERROR_PAGE
+//    configurations.all {
+//        resolutionStrategy {
+//            force 'androidx.webkit:webkit:1.8.0'
+//        }
+//    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.firebase:firebase-analytics:22.5.0'
+    implementation 'com.google.android.gms:play-services-basement:18.7.1'
+    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.appcompat:appcompat-resources:1.7.1'
+    implementation 'androidx.media:media:1.7.0'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+    // This dependency is downloaded from the Google’s Maven repository.
+    // So, make sure you also include that repository in your project's build.gradle file.
+    implementation 'com.google.android.play:review:2.0.1'
+    // For Kotlin users also add the Kotlin extensions library for Play In-App Review:
+    implementation 'com.google.android.play:review-ktx:2.0.1'
+}

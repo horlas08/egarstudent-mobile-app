@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "233592377546",
+    "project_id": "egar-students",
+    "storage_bucket": "egar-students.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233592377546:android:648cbd51248a317b952433",
+        "android_client_info": {
+          "package_name": "com.egar.students"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQqFp5CgTvmw5VKVW35X0va_MqDCYhnW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
