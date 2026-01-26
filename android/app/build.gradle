@@ -12,8 +12,8 @@ if (localPropertiesFile.exists()) {
         localProperties.load(reader)
     }
 }
-def flutterVersionCode = project.hasProperty('flutter.versionCode') ? project['flutter.versionCode'] : "10"
-def flutterVersionName = project.hasProperty('flutter.versionName') ? project['flutter.versionName'] : "2.0.0"
+def flutterVersionCode = project.hasProperty('flutter.versionCode') ? project['flutter.versionCode'] : "11"
+def flutterVersionName = project.hasProperty('flutter.versionName') ? project['flutter.versionName'] : "2.0.1"
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
