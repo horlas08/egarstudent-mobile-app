@@ -1,6 +1,6 @@
 name: mightyweb
 description: A new Flutter application.
-version: 3.0.0+2
+version: 3.0.0+30
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
